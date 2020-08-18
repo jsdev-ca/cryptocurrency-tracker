@@ -33,6 +33,18 @@ const CryptocurrencyTracker = ({
     }
   });
 
+  const sortBy = category => {
+    setSortConfig({
+      category,
+      order: {
+        ...sortConfig.order,
+        [category]: sortConfig.order[category] === 'ascending'
+          ? 'descending'
+          : 'ascending'
+      }
+    });
+  };
+
   useEffect(() => {
     fetchData();
   }, [fetchData]);
@@ -59,15 +71,7 @@ const CryptocurrencyTracker = ({
             <tr>
               <th>
                 Rank
-                <button onClick={() => setSortConfig({
-                  category: 'rank',
-                  order: {
-                    ...sortConfig.order,
-                    rank: sortConfig.order.rank === 'ascending'
-                      ? 'descending'
-                      : 'ascending'
-                  }
-                })}>
+                <button onClick={() => sortBy('rank')}>
                   {sortConfig.order.rank === 'ascending' ? '▲' : '▼'}
                 </button>
               </th>
@@ -76,15 +80,7 @@ const CryptocurrencyTracker = ({
               </th>
               <th>
                 Price (USD)
-                <button onClick={() => setSortConfig({
-                  category: 'price',
-                  order: {
-                    ...sortConfig.order,
-                    price: sortConfig.order.price === 'ascending'
-                      ? 'descending'
-                      : 'ascending'
-                  }
-                })}>
+                <button onClick={() => sortBy('price')}>
                   {sortConfig.order.price === 'ascending' ? '▲' : '▼'}
                 </button>
               </th>
